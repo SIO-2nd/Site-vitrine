@@ -597,7 +597,7 @@ else
             <div class="info-box  mb-4">
               <i class="bx bx-envelope"></i>
               <h3>Email </h3>
-              <p>infotools@gmail.com</p>
+              <p>groupe1-projet@outlook.fr</p>
             </div>
           </div>
 
