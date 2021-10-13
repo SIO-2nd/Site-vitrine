@@ -667,7 +667,7 @@ else
                 3 Place Mathias  <br>
                 71321 Chalon-sur-Saone<br><br>
                 <strong>Tel:</strong> 03 85 97 48 00<br>
-                <strong>Email:</strong> Infotools@example.com<br>
+                <strong>Email:</strong> groupe1-projet@outlook.fr<br>
               </p>
               <!-- <div class="social-links mt-3">
                 <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
