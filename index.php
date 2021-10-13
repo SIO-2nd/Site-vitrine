@@ -683,8 +683,8 @@ else
             <h4>Useful Links</h4>
             <ul>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Accueil</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Apropos</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#about">Apropos</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#services">Services</a></li>
             </ul>
           </div>
 
