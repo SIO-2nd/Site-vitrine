@@ -11,6 +11,11 @@ else
     $message = $_SESSION['message'];
     $_SESSION['message'] = '';
 }
+
+if (!isset($_SESSION['send']))
+{
+    $_SESSION['send'] = '';
+}
 ?>
 
 <!DOCTYPE html>
@@ -38,6 +43,7 @@ else
   <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   
 
   <!-- Template Main CSS File -->
@@ -635,13 +641,24 @@ else
               <div class="form-group mt-3">
                 <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
               </div>
+             
+              <div class="text-center"><button type="submit">Envoyer</button></div> 
               <div class="my-3">
-                <?php
-                  echo $message;
+                  <?php
+                  
+                  {
+                   if($_SESSION['send'] == "1") {   
+                       echo "<script>swal({
+                        title: 'Message envoyé !',
+                        text: 'Nous vous répondrons au plus vite !',
+                        icon: 'success',
+                      });</script>";
+                      $_SESSION['send'] = "";
+                    }
+                  }
                 ?>
               </div>
-              <div class="text-center"><button type="submit">Envoyer</button></div>
-             
+           
             </form>
           </div>
           
@@ -723,7 +740,8 @@ else
   <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
   <script src="assets/vendor/purecounter/purecounter.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  
+  
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>

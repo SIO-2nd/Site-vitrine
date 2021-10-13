@@ -6,6 +6,11 @@ if (!isset($_SESSION['message']))
 {
     $_SESSION['message'] = '';
 }
+
+if (!isset($_SESSION['send']))
+{
+    $_SESSION['send'] = '';
+}
 ?>
 <!--Configurer le compte Outloook ainsi que le coprs du mail puis envoyer celui-ci puis définir la variable d'envoie d'un message-->
 <?php
@@ -15,6 +20,7 @@ if (!isset($_SESSION['message']))
     $mailto = "groupe1-projet@outlook.fr";
     $mailsub = utf8_decode($_POST["subject"]);
     $_SESSION['message'] = "Le message a été envoyé avec succès";
+    $_SESSION['send'] = "1";
     $mailmsg = utf8_decode("Envoyé par : {$_POST['name']}<br>Son email : {$_POST['email']}<br>Objet : {$_POST['subject']}<br>Message : {$_POST['message']}<br><br>©Info Tools - Groupe 1");
     require("src/PHPMailer.php");
     require("src/SMTP.php");
@@ -39,7 +45,7 @@ if (!isset($_SESSION['message']))
     /*Rediriger l'utilisateur sur la page de message*/
     echo '<script language="Javascript">
     <!--
-    document.location.replace("index.php#mail");
+    document.location.replace("index.php");
     // -->
     </script>';
 ?>
