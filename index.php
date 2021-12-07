@@ -214,13 +214,13 @@ if (!isset($_SESSION['send']))
 
         <div class="row no-gutters">
 
-          <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
+          <!-- <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
             <div class="count-box">
               <i class="bi bi-emoji-smile"></i>
               <span data-purecounter-start="0" data-purecounter-end="52" data-purecounter-duration="1" class="purecounter"></span>
               <p><strong>Clients Satisfaits</strong></p>
             </div>
-          </div>
+          </div> -->
 
           <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
             <div class="count-box">
@@ -246,6 +246,14 @@ if (!isset($_SESSION['send']))
             </div>
           </div>
 
+          <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
+            <div class="count-box">
+              <i class="bi bi-people"></i>
+              <span data-purecounter-start="0" data-purecounter-end="3" data-purecounter-duration="1" class="purecounter"></span>
+              <p><strong>Spécialistes des réseaux bac+5</strong></p>
+            </div>
+          </div>
+
         </div>
 
       </div>
@@ -265,121 +273,64 @@ if (!isset($_SESSION['send']))
     </section><!-- End Cta Section -->
 
     <!-- ======= Portfolio Section ======= -->
-    <!-- <section id="produits" class="portfolio">
+     <section id="produits" class="portfolio">
       <div class="container">
 
         <div class="section-title" data-aos="fade-in" data-aos-delay="100">
-          <h2>Portfolio</h2>
+          <h2>Produits</h2>
           <p>Découvez nos produits de très bonne qualité !</p>
         </div>
+        
 
-        <div class="row" data-aos="fade-in">
-          <div class="col-lg-12 d-flex justify-content-center">
-            <ul id="portfolio-flters">
-              <li data-filter="*" class="filter-active">Tout</li>
-              <li data-filter=".filter-app">App</li>
-              <li data-filter=".filter-card">Card</li>
-              <li data-filter=".filter-web">Web</li>
-            </ul>
-          </div>
-        </div>
+         <div class="row portfolio-container" data-aos="fade-up">
+           
+           <?php
+              #On se connecte à la base de données
+              $host = 'localhost';
+              $bdd = 'mission1';
+              $user = 'root';
+              $passwd = 'root';
 
-        <div class="row portfolio-container" data-aos="fade-up">
+              try
+                {
+                  $cnn = new PDO("mysql:host=$host;dbname=$bdd;charset=utf8", $user, $passwd, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+                }
 
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/portfolio-1.jpg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/portfolio-1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 1"><i class="bx bx-plus"></i></a>
-                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
+              catch(PDOException $e)
+                  {
+                      echo "Erreur : ". $e->getMessage();
+                  }
+              #On fait notre requête SQL
+              $requete = "SELECT urlProd, descProd, NomProd,PrixProd FROM produit";
+              $resultat = $cnn->query($requete) or die(print_r($bdd->errorInfo()));
+              while($row = $resultat->fetch())
+                {
+              #On affiche les données à l'écran		   
+                  echo "<div class='col-lg-4 col-md-6 portfolio-item filter-app'>
+                  <div class='portfolio-wrap'>
+                    <img src='{$row['urlProd']}' class='img-fluid img' ></img>
+                    <div class='portfolio-links'>
+                      <a href='{$row['urlProd']}' data-gallery='portfolioGallery' class='portfolio-lightbox' title='{$row['NomProd']} </br> {$row['descProd']} </br> {$row['PrixProd']}€'><i class='bx bx-plus'></i></a>
+                    </div>
+                  </div>
+                </div>";
+                }
+              $cnn=null;  
+              ?>
+                <style>
+                      .img {
+                          
+                          width:  100%;
+                          height: 200px;
+                          object-fit: cover;
 
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/portfolio-2.jpg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/portfolio-2.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 3"><i class="bx bx-plus"></i></a>
-                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/portfolio-3.jpg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/portfolio-3.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 2"><i class="bx bx-plus"></i></a>
-                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/portfolio-4.jpg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/portfolio-4.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 2"><i class="bx bx-plus"></i></a>
-                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/portfolio-5.jpg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/portfolio-5.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 2"><i class="bx bx-plus"></i></a>
-                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/portfolio-6.jpg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/portfolio-6.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 3"><i class="bx bx-plus"></i></a>
-                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/portfolio-7.jpg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/portfolio-7.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 1"><i class="bx bx-plus"></i></a>
-                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/portfolio-8.jpg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 3"><i class="bx bx-plus"></i></a>
-                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/portfolio-9.jpg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/portfolio-9.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 3"><i class="bx bx-plus"></i></a>
-                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
+                      }
+                  </style>
 
         </div>
 
-      </div>
-    </section> End Portfolio Section -->
+      </div> 
+     </section> <!--End Portfolio Section  -->
 
     <!-- ======= Testimonials Section ======= -->
     <section id="testimonials" class="testimonials section-bg">
@@ -481,13 +432,7 @@ if (!isset($_SESSION['send']))
               <div class="pic"><img src="assets/img/team/team-3.jpg" class="img-fluid" alt=""></div>
               <div class="member-info">
                 <h4>Mateo Carciu</h4>
-                <span>Développeur chez la NASA</span>
-                <!-- <div class="social">
-                  <a href="https://www.twitter.com/"><i class="bi bi-twitter"></i></a>
-                  <a href="https://www.facebook.com/"><i class="bi bi-facebook"></i></a>
-                  <a href="https://www.instagram.com/"><i class="bi bi-instagram"></i></a>
-                  <a href="https://www.linkedin.com/"><i class="bi bi-linkedin"></i></a>
-                </div> -->
+                <span>Développeur</span>
               </div>
             </div>
           </div>
@@ -497,13 +442,7 @@ if (!isset($_SESSION['send']))
               <div class="pic"><img src="assets/img/team/team-2.jpg" class="img-fluid" alt=""></div>
               <div class="member-info">
                 <h4>Timothé Requiston</h4>
-                <span>Développeur chez Mojang</span>
-                <!-- <div class="social">
-                  <a href="https://www.twitter.com/"><i class="bi bi-twitter"></i></a>
-                  <a href="https://www.facebook.com/"><i class="bi bi-facebook"></i></a>
-                  <a href="https://www.instagram.com/"><i class="bi bi-instagram"></i></a>
-                  <a href="https://www.linkedin.com/"><i class="bi bi-linkedin"></i></a>
-                </div> -->
+                <span>Développeur</span>
               </div>
             </div>
           </div>
@@ -513,13 +452,7 @@ if (!isset($_SESSION['send']))
               <div class="pic"><img src="assets/img/team/team-1.jpg" class="img-fluid" alt=""></div>
               <div class="member-info">
                 <h4>Philippe Peyronnet</h4>
-                <span>Développeur chez Google</span>
-                <!-- <div class="social">
-                  <a href="https://www.twitter.com/"><i class="bi bi-twitter"></i></a>
-                  <a href="https://www.facebook.com/"><i class="bi bi-facebook"></i></a>
-                  <a href="https://www.instagram.com/"><i class="bi bi-instagram"></i></a>
-                  <a href="https://www.linkedin.com/"><i class="bi bi-linkedin"></i></a>
-                </div> -->
+                <span>Développeur</span>
               </div>
             </div>
           </div>
@@ -534,12 +467,6 @@ if (!isset($_SESSION['send']))
               <div class="member-info">
                 <h4>Aymen Ben Ghezala</h4>
                 <span>Technicien réseau</span>
-                <!-- <div class="social">
-                  <a href="https://www.twitter.com/"><i class="bi bi-twitter"></i></a>
-                  <a href="https://www.facebook.com/"><i class="bi bi-facebook"></i></a>
-                  <a href="https://www.instagram.com/"><i class="bi bi-instagram"></i></a>
-                  <a href="https://www.linkedin.com/"><i class="bi bi-linkedin"></i></a>
-                </div> -->
               </div>
             </div>
           </div>
@@ -550,28 +477,16 @@ if (!isset($_SESSION['send']))
               <div class="member-info">
                 <h4>Emeric Lagrange</h4>
                 <span>Spécialise des réseaux</span>
-                <!-- <div class="social">
-                  <a href="https://www.twitter.com/"><i class="bi bi-twitter"></i></a>
-                  <a href="https://www.facebook.com/"><i class="bi bi-facebook"></i></a>
-                  <a href="https://www.instagram.com/"><i class="bi bi-instagram"></i></a>
-                  <a href="https://www.linkedin.com/"><i class="bi bi-linkedin"></i></a>
-                </div> -->
               </div>
             </div>
           </div>
 
           <div class="col-lg-4 col-md-6">
             <div class="member" data-aos="fade-up" data-aos-delay="300">
-              <div class="pic"><img src="assets/img/team/brahim.jpg" class="img-fluid" alt=""></div>
+              <div class="pic"><img src="assets/img/team/Brahim.jpg" class="img-fluid" alt=""></div>
               <div class="member-info">
                 <h4>Brahim Naghraoui</h4>
                 <span>Spécialiste des infrastructures réseau</span>
-                <!-- <div class="social">
-                  <a href="https://www.twitter.com/"><i class="bi bi-twitter"></i></a>
-                  <a href="https://www.facebook.com/"><i class="bi bi-facebook"></i></a>
-                  <a href="https://www.instagram.com/"><i class="bi bi-instagram"></i></a>
-                  <a href="https://www.linkedin.com/"><i class="bi bi-linkedin"></i></a>
-                </div> -->
               </div>
             </div>
           </div>
@@ -587,7 +502,7 @@ if (!isset($_SESSION['send']))
 
         <div class="section-title">
           <h2>Contact</h2>
-          <p>Contactez nous pour si vous souhaitez une information ou un devis gratuit ! </p>
+          <p>Contactez nous pour si vous souhaitez une information ou un rendez-vous ! </p>
         </div>
 
         <div class="row">
@@ -686,13 +601,6 @@ if (!isset($_SESSION['send']))
                 <strong>Tel:</strong> 03 85 97 48 00<br>
                 <strong>Email:</strong> groupe1-projet@outlook.fr<br>
               </p>
-              <!-- <div class="social-links mt-3">
-                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-                <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-              </div> -->
             </div>
           </div>
 
@@ -704,16 +612,6 @@ if (!isset($_SESSION['send']))
               <li><i class="bx bx-chevron-right"></i> <a href="#services">Services</a></li>
             </ul>
           </div>
-
-          <!-- <div class="col-lg-4 col-md-6 footer-newsletter">
-            <h4>Notre Newsletter</h4>
-            <p>Abonnez vous a notre newsletter afin de rester au courant de touut ! </p>
-            <form action="" method="post">
-              <input type="email" name="email"><input type="submit" value="Subscribe">
-            </form>
-
-          </div> -->
-
         </div>
       </div>
     </div>
@@ -721,12 +619,6 @@ if (!isset($_SESSION['send']))
     <div class="container">
       <div class="copyright">
         &copy; Copyright <strong><span>InfoTools</span></strong>. Tous droits reservés
-      </div>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/squadfree-free-bootstrap-template-creative/ -->
       </div>
     </div>
   </footer><!-- End Footer -->
